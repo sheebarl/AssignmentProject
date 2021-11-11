@@ -31,7 +31,8 @@ public class AnimalHotel implements Serializable{
         System.out.println("2.Edit Booking");
         System.out.println("3.Check_In");
         System.out.println("4.Check_Out");
-        System.out.println("5.Exit");
+        System.out.println("5.Filter Booking");
+        System.out.println("6.Exit");
         System.out.println("**********************************");
     }
 
@@ -54,6 +55,7 @@ public class AnimalHotel implements Serializable{
                     System.out.println("Edit Booking");
                     System.out.println("*****************************");
                     EditMethod();
+                    //UpdateMethod();
                     break;
                 case 3:
                     System.out.println("Check_In Details");
@@ -66,6 +68,11 @@ public class AnimalHotel implements Serializable{
                     CancelMethod();
                     break;
                 case 5:
+                    System.out.println("Filter Bookings");
+                    System.out.println("*******************************");
+                    FilterBookings();
+                    break;
+                case 6:
                     System.out.println("Exit from Booking");
                     System.out.println("*******************************");
                     System.out.println("You selected to exit");
@@ -106,7 +113,8 @@ public class AnimalHotel implements Serializable{
     //In this Booking method we get input from user and do booking for particular animal.
     public void BookingMethod(){
 
-        System.out.print("Enter the name : ");
+
+        System.out.print("Enter the Animmal_name : ");
         String name=getUserString();
         System.out.print("Enter your Favourite Food : ");
         String food=getUserString();
@@ -202,16 +210,15 @@ public class AnimalHotel implements Serializable{
     //In this method we can change the room for animals according to their selected activity
     public void EditMethod() {
 
-        System.out.print("Enter the name : ");
+        System.out.print("Do you want to change any details ");
+        String s1 = getUserString();
+        if (s1.equalsIgnoreCase("Yes")) {
+        System.out.print("Enter the Animal_name : ");
         String name = getUserString();
         System.out.print("Enter your Favourite Food : ");
         String food=getUserString();
-        System.out.print("Do you want to change your favourite activity? : ");
-        String s1 = getUserString();
-        String activity;
-        if (s1.equalsIgnoreCase("Yes")) {
-            System.out.print("Enter your Favourite Activity : ");
-            activity = getUserString();
+        System.out.print("Enter your Favourite Activity : ");
+        String activity = getUserString();
 
             if (activity.equalsIgnoreCase("Play")) {
 
@@ -221,8 +228,9 @@ public class AnimalHotel implements Serializable{
                 bookingList =readBooking();
 
                 for (int i = 0; i < bookingList.size(); i++) {
-                    if (bookingList.get(i).getAnimals().getAnimal_name().equalsIgnoreCase(name)) {
+                    //if (bookingList.get(i).getAnimals().getAnimal_name().equalsIgnoreCase(name)) {
                             bookingList.get(i).setRoom(room1);
+                            bookingList.get(i).getAnimals().setAnimal_name(name);
                             bookingList.get(i).getAnimals().setFavourite_food(food);
                             bookingList.get(i).getAnimals().setFavourite_activity(activity);
                             writeBooking(bookingList);
@@ -231,20 +239,20 @@ public class AnimalHotel implements Serializable{
                           //  break;
                         //}
                     }
-                }
+               // }
                // } else
                 //System.out.println("No room available for activity "+ activity);
             } else if (activity.equalsIgnoreCase("Sleep")) {
 
                     for (int i = 0; i < bookingList.size(); i++) {
-                        if (bookingList.get(i).getAnimals().getAnimal_name().equals(name)) {
+                        //if (bookingList.get(i).getAnimals().getAnimal_name().equals(name)) {
                             // if (RoomArray.get(i).getRoom_quantity() > 0) {
-
                             bookingList.get(i).setRoom(room2);
+                            bookingList.get(i).getAnimals().setAnimal_name(name);
                             bookingList.get(i).getAnimals().setFavourite_food(food);
                             bookingList.get(i).getAnimals().setFavourite_activity(activity);
                             writeBooking(bookingList);
-                        }
+                        //}
                     }
                                           //bookingList.remove(i).getRoom();
                             //bookingList.get(i).getRoom();
@@ -260,10 +268,11 @@ public class AnimalHotel implements Serializable{
                 //if(checkRoomAvailability(activity)) {
 
                     for (int i = 0; i < bookingList.size(); i++) {
-                        if (bookingList.get(i).getAnimals().getAnimal_name().equalsIgnoreCase(name)) {
+                        //if (bookingList.get(i).getAnimals().getAnimal_name().equalsIgnoreCase(name)) {
                             //System.out.println(RoomArray.get(i).RoomChecking);
                             //if(RoomArray.get(i).getRoomChecking()==true){
                             bookingList.get(i).setRoom(room3);
+                            bookingList.get(i).getAnimals().setAnimal_name(name);
                             bookingList.get(i).getAnimals().setFavourite_food(food);
                             bookingList.get(i).getAnimals().setFavourite_activity(activity);
                             writeBooking(bookingList);
@@ -271,7 +280,7 @@ public class AnimalHotel implements Serializable{
                           //      System.out.println("No rooms are available");
 
                         }
-                }
+               // }
                     }
 
             } else {
@@ -280,15 +289,58 @@ public class AnimalHotel implements Serializable{
             System.out.println("Updated Booking");
             System.out.println("*********************************");
 
-
            for (int i = 0; i < bookingList.size(); i++) {
                 System.out.println(bookingList.get(i).toString());
             }
 
         }
 
+public void UpdateMethod(){
 
 
+    System.out.print("Enter the Animal_name : ");
+    String name = getUserString();
+    System.out.print("Enter your Favourite Food : ");
+    String food=getUserString();
+    System.out.print("Enter your Favourite Activity : ");
+    String activity = getUserString();
+        ArrayList<Booking> bookingList = new ArrayList<Booking>();
+        //reading the data from file
+        bookingList =readBooking();
+        for(int i=0;i<bookingList.size();i++){
+            System.out.println(bookingList.get(i).getRoom().toString());
+        }
+        for (int i = 0; i < bookingList.size(); i++) {
+
+                bookingList.get(i).getAnimals().setAnimal_name(name);
+                bookingList.get(i).getAnimals().setFavourite_food(food);
+                bookingList.get(i).getAnimals().setFavourite_activity(activity);
+                writeBooking(bookingList);
+
+            }
+
+            System.out.println("Updated Booking");
+            System.out.println("*********************************");
+
+
+           for (int i = 0; i < bookingList.size(); i++) {
+        System.out.println(bookingList.get(i).getAnimals().toString());
+    }
+
+
+}
+
+public void FilterBookings(){
+
+    System.out.println("Enter the name to filter");
+    String s=getUserString();
+        for(int i=0;i<bookingList.size();i++){
+            if(bookingList.get(i).getAnimals().getAnimal_name().contains(s)){
+            System.out.println("Animal name with " + s + ": " + bookingList.get(i).getAnimals().getAnimal_name());
+        }
+    }
+
+}
 
     //This method displays both list of all boookings and individual bookings
     public void CheckInMethod() {
