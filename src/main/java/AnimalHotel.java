@@ -1,22 +1,25 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
-//In this class AnimalHotel we do room Booking, room Editing,checkin  and checkout details of Animals.
 
+//In this class AnimalHotel we do room Booking, room Editing,checkin  and checkout details of Animals.
+//This class implements the serializable interface to make the class serialized or deserialized while file handling
 public class AnimalHotel implements Serializable{
 
-
+    //This is a constructor of class AnimalHotel.Here we are adding all types of room to RoomArray list.
     public AnimalHotel() {
         RoomArray.add(room1);
         RoomArray.add(room2);
         RoomArray.add(room3);
     }
-
+   //Created arraylist for Room and Booking class
     ArrayList<Room> RoomArray=new ArrayList<Room>();
     ArrayList<Booking> bookingList=new ArrayList<Booking>();
+
     Animals animals;
     Booking booking=new Booking();
 
+    //Here we are creating room object for 3 different rooms and passing the values for different room types
     Room room1=new LightRoom("LightRoom","R001","100x100",2,true);
     Room room2=new DarkRoom("DarkRoom","R002","150x150",1,true);
     Room room3=new NestedRoom("NestedRoom","R003","100x100",1,true);
@@ -40,7 +43,7 @@ public class AnimalHotel implements Serializable{
     //In this start() method according to the user choice it goes to switch case and  call the particular method and perform that
 
     public void start(){
-        //FileMethod();
+
         boolean menuOption=true;
         while(menuOption){
             PrintMenu();
@@ -56,7 +59,6 @@ public class AnimalHotel implements Serializable{
                     System.out.println("Edit Booking");
                     System.out.println("*****************************");
                     EditMethod();
-                    //UpdateMethod();
                     break;
                 case 3:
                     System.out.println("Check_In Details");
@@ -164,7 +166,6 @@ public class AnimalHotel implements Serializable{
                 if (RoomArray.get(i).room_number.equalsIgnoreCase(number)) {
                     validateRoom = true;
                     if (RoomArray.get(i).room_type.equalsIgnoreCase(roomChoice)) {
-                        while (RoomArray.get(i).RoomChecking) {
                             if (RoomArray.get(i).room_quantity > 0) {
                                 System.out.println("Rooms are available.You can Book now ");
                                 quantity = RoomArray.get(i).room_quantity - 1;
@@ -177,29 +178,24 @@ public class AnimalHotel implements Serializable{
 
                                 //Adding to file
                                 writeBooking(bookingList);
-                                //System.out.println(RoomArray.get(i).getRoom_quantity());
-                                 if(RoomArray.get(i).getRoom_quantity()== 0) {
+
+                                if(RoomArray.get(i).getRoom_quantity()== 0) {
                                      RoomArray.get(i).setRoomChecking(false);
                                  }
-                                //System.out.println(RoomArray.get(i).getRoomChecking());
+
                                 System.out.println("Your " + booking.toString());
                                 break;
                             } else {
                                 System.out.println("You cannot book.Rooms are already booked");
-                                //bookingList.remove(i);
+
 
                                 break;
                             }
-                        }
-                        //RoomArray.get(i).setRoomChecking(true);
                     } else {
                         System.out.println("Sorry,this Room is not available");
                         break;
                     }
                 }
-
-
-
 
         }
             if (validateRoom== false)
@@ -215,93 +211,67 @@ public class AnimalHotel implements Serializable{
         bookingList =readBooking();
         System.out.print("Do you want to change any details? > ");
         String s1 = getUserString();
+
         if (s1.equalsIgnoreCase("Yes")) {
+            System.out.print("Enter your room number : ");
+            String room_num=getUserString();
             System.out.println("Select an option ");
             System.out.println("1.Name");
             System.out.println("2.Favourite_Food");
             System.out.println("3.Favourite_Activity");
             int choose=getUserInt();
-
             if(choose==1) {
                 System.out.print("Enter the Animal_name : ");
                 String name = getUserString();
                 for (int i = 0; i < bookingList.size(); i++) {
-                    bookingList.get(i).getAnimals().setAnimal_name(name);
-                    writeBooking(bookingList);
+                    if (bookingList.get(i).getRoom().getRoom_number().equalsIgnoreCase(room_num)) {
+                        bookingList.get(i).getAnimals().setAnimal_name(name);
+                        writeBooking(bookingList);
+                    }
                 }
             }else if(choose==2){
-        System.out.print("Enter your Favourite Food : ");
-        String food=getUserString();
-                for (int i = 0; i < bookingList.size(); i++) {
-                    bookingList.get(i).getAnimals().setFavourite_food(food);
-                    writeBooking(bookingList);
+                    System.out.print("Enter your Favourite Food : ");
+                    String food=getUserString();
+                    for (int i = 0; i < bookingList.size(); i++) {
+                    if (bookingList.get(i).getRoom().getRoom_number().equalsIgnoreCase(room_num)) {
+                        bookingList.get(i).getAnimals().setFavourite_food(food);
+                        writeBooking(bookingList);
+                    }
                 }
             }else if(choose==3) {
 
-                System.out.print("Enter your Favourite Activity : ");
-                String activity = getUserString();
-                for (int i = 0; i < bookingList.size(); i++) {
-                    bookingList.get(i).getAnimals().setFavourite_activity(activity);
-                    writeBooking(bookingList);
+                    System.out.print("Enter your Favourite Activity : ");
+                    String activity = getUserString();
+                    for (int i = 0; i < bookingList.size(); i++) {
+                    if (bookingList.get(i).getRoom().getRoom_number().equalsIgnoreCase(room_num)) {
+                        bookingList.get(i).getAnimals().setFavourite_activity(activity);
+                        writeBooking(bookingList);
+                    }
                 }
             }
-
             } else {
                 System.out.println("No Changes");
             }
-            System.out.println("Updated Booking");
-            System.out.println("*********************************");
+                System.out.println("Updated Booking");
+                System.out.println("*********************************");
 
-           for (int i = 0; i < bookingList.size(); i++) {
+                for (int i = 0; i < bookingList.size(); i++) {
                 System.out.println(bookingList.get(i).getAnimals().toString());
             }
 
         }
 
-public void UpdateMethod(){
-
-
-    System.out.print("Enter the Animal_name : ");
-    String name = getUserString();
-    System.out.print("Enter your Favourite Food : ");
-    String food=getUserString();
-    System.out.print("Enter your Favourite Activity : ");
-    String activity = getUserString();
-        ArrayList<Booking> bookingList = new ArrayList<Booking>();
-        //reading the data from file
-        bookingList =readBooking();
-
-        for (int i = 0; i < bookingList.size(); i++) {
-
-                bookingList.get(i).getAnimals().setAnimal_name(name);
-                bookingList.get(i).getAnimals().setFavourite_food(food);
-                bookingList.get(i).getAnimals().setFavourite_activity(activity);
-                writeBooking(bookingList);
-
-            }
-
-            System.out.println("Updated Booking");
-            System.out.println("*********************************");
-
-
-           for (int i = 0; i < bookingList.size(); i++) {
-        System.out.println(bookingList.get(i).getAnimals().toString());
-    }
-
-
-}
-
-public void FilterBookings(){
-
-    System.out.println("Enter the name to filter");
-    String s=getUserString();
+    //This method is used to filter the animal name
+    public void FilterBookings(){
+        System.out.print("Enter the name to filter : ");
+        String s=getUserString();
         for(int i=0;i<bookingList.size();i++){
             if(bookingList.get(i).getAnimals().getAnimal_name().contains(s)){
             System.out.println("Animal name with " + s + ": " + bookingList.get(i).getAnimals().getAnimal_name());
         }
-    }
+     }
 
-}
+   }
 
     //This method displays both list of all boookings and individual bookings
     public void CheckInMethod() {
@@ -320,8 +290,6 @@ public void FilterBookings(){
                 bookingArrayList = readBooking();
 
                 for (int i = 0; i < bookingArrayList.size(); i++){
-              //  for (int i = 0; i < bookingList.size(); i++) {
-                   // System.out.println("Booking find : " +bookingList.get(i).toString());
                     System.out.println("Booking find : Name : " +  bookingArrayList.get(i).getAnimals().animal_name + " " + "Room Number " + bookingArrayList.get(i).getRoom().room_number  );
                 }
                 option=false;
@@ -356,11 +324,11 @@ public void FilterBookings(){
         bookingArray=readBooking();
 
         for(int i=0;i<bookingArray.size();i++){
-            if(name.equals(bookingArray.get(i).getAnimals().animal_name)){
+            if(bookingArray.get(i).getAnimals().getAnimal_name().equalsIgnoreCase(name)){
                 bookingArray.remove(i);
                 System.out.println("Booking Cancelled ");
             }
-            break;
+
         }
 
         for (int i = 0; i < bookingArray.size(); i++) {
@@ -372,15 +340,10 @@ public void FilterBookings(){
         writeBooking(bookingArray);
     }
 
+    //This is file write method here we create a file and add all data into the file
     public void writeBooking(ArrayList<Booking> bookingList1) {
         try {
             FileWriter myObj = new FileWriter("C:\\assignment\\filename.txt", true);
-          /*  if (!myObj.exists()){
-                    myObj.createNewFile() ;
-                System.out.println("File created : " + myObj.getName());
-            } else {
-                System.out.println("File already exists");
-            }*/
         } catch (IOException e) {
             System.out.println("An error occured " + e);
         }
@@ -397,17 +360,15 @@ public void FilterBookings(){
         }
     }
 
+        //This is a method to read all data from file
         public ArrayList<Booking> readBooking( ){
 
             ArrayList<Booking> booking2 =new ArrayList<Booking>();
         try{
             FileInputStream readData = new FileInputStream("C:\\assignment\\filename.txt");
             ObjectInputStream readStream = new ObjectInputStream(readData);
-
              booking2 = (ArrayList<Booking>) readStream.readObject();
             readStream.close();
-
-            //System.out.println(booking2.toString());
         }catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -418,97 +379,3 @@ public void FilterBookings(){
 
 
 
-//booking.setRoom(RoomArray.get(i).Room1);
-//booking.room.setRoom_quantity(quantity);
-//booking.setRoom(RoomArray.get(i));
-// if (RoomArray.get(i).getRoom_quantity() > 0) {
-                        //bookingList.get(i).setRoom(room2);
-                          //      bookingList.get(i).getAnimals().setFavourite_activity(activity);
-                            //    if (bookingList.get(i).getRoom().getRoom_quantity() <= 0) {
-                              //  System.out.println(bookingList.get(i).getRoom().getRoom_quantity());
-                                //System.out.println("No rooms are available");
-                                //bookingList.remove(i).getRoom();
-                                //bookingList.get(i).getRoom();
-                                //bookingList.get(i).setRoom();
-                                //}
-                       /* } else {
-                            System.out.println("No rooms are available");
-                            break;
-                        }
-
-
-editmethod
-if (activity.equalsIgnoreCase("Play")) {
-
-
-               ArrayList<Booking> bookingList = new ArrayList<Booking>();
-               //reading the data from file
-                bookingList =readBooking();
-
-                for (int i = 0; i < bookingList.size(); i++) {
-                    //if (bookingList.get(i).getAnimals().getAnimal_name().equalsIgnoreCase(name)) {
-                            bookingList.get(i).setRoom(room1);
-                            bookingList.get(i).getAnimals().setAnimal_name(name);
-                            bookingList.get(i).getAnimals().setFavourite_food(food);
-                            bookingList.get(i).getAnimals().setFavourite_activity(activity);
-                            writeBooking(bookingList);
-                       // if(bookingList.get(i).getRoom().getRoom_quantity()<= 0){
-                         //   System.out.println("No rooms are available");
-                          //  break;
-                        //}
-                    }
-               // }
-               // } else
-                //System.out.println("No room available for activity "+ activity);
-            } else if (activity.equalsIgnoreCase("Sleep")) {
-
-                    for (int i = 0; i < bookingList.size(); i++) {
-                        //if (bookingList.get(i).getAnimals().getAnimal_name().equals(name)) {
-                            // if (RoomArray.get(i).getRoom_quantity() > 0) {
-                            bookingList.get(i).setRoom(room2);
-                            bookingList.get(i).getAnimals().setAnimal_name(name);
-                            bookingList.get(i).getAnimals().setFavourite_food(food);
-                            bookingList.get(i).getAnimals().setFavourite_activity(activity);
-                            writeBooking(bookingList);
-                        //}
-                    }
-                                          //bookingList.remove(i).getRoom();
-                            //bookingList.get(i).getRoom();
-                            //bookingList.get(i).setRoom();
-
-                       /* } else {
-                            System.out.println("No rooms are available");
-                            break;
-                        }*/
-
-
-         /*   } else if (activity.equalsIgnoreCase("MakingNest")) {
-                    //if(checkRoomAvailability(activity)) {
-
-                    for (int i = 0; i < bookingList.size(); i++) {
-        //if (bookingList.get(i).getAnimals().getAnimal_name().equalsIgnoreCase(name)) {
-        //System.out.println(RoomArray.get(i).RoomChecking);
-        //if(RoomArray.get(i).getRoomChecking()==true){
-        bookingList.get(i).setRoom(room3);
-        bookingList.get(i).getAnimals().setAnimal_name(name);
-        bookingList.get(i).getAnimals().setFavourite_food(food);
-        bookingList.get(i).getAnimals().setFavourite_activity(activity);
-        writeBooking(bookingList);
-        //}else
-        //      System.out.println("No rooms are available");
-
-        }
-        // }
-        }
-
-        } else {
-        System.out.println("No Changes");
-        }
-        System.out.println("Updated Booking");
-        System.out.println("*********************************");
-
-        for (int i = 0; i < bookingList.size(); i++) {
-        System.out.println(bookingList.get(i).toString());
-        }
-
-        }*/

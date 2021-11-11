@@ -8,7 +8,6 @@ public class Room implements Serializable {
     String room_type;
     String room_description;
     boolean RoomChecking;
-    LightRoom Room1;
     Animals animals;
 
     @Override
@@ -27,20 +26,22 @@ public class Room implements Serializable {
         this.room_number=number;
         this.room_dimension=dimension;
         this.room_quantity=quantity;
-        //this.room_description=describe();
         this.RoomChecking=check;
     }
 
+    //This is description of room which is overridden by all other different room type
     public String describe(){
         room_description="Room for Animals";
         return room_description;
     }
 
+    //This is the setter method of roomchecking attributes which set the values for attributes
     public void setRoomChecking(boolean check){
         this.RoomChecking=check;
 
     }
 
+    //This is the getter method of getRoomchecking attributes which returns the value of attributes
     public Boolean getRoomChecking() {
         return RoomChecking;
     }

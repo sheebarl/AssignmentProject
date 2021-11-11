@@ -5,10 +5,10 @@ public class Booking  implements Serializable {
     Room room;
     Animals animals;
 
-
+    //Overriding toString method returns the desired output
     @Override
     public String toString() {
-        return " Booking  " + "\n" +
+        return "Booking  " + "\n" +
                 "Room_details : " + "Room_number : " + room  + " " + "\n" +
                 "Animals_details : " + animals ;
 
