@@ -1,4 +1,6 @@
-public class NestedRoom extends Room{
+import java.io.Serializable;
+
+public class NestedRoom extends Room implements Serializable {
        public NestedRoom(String type,String number,String dimension,int quantity,boolean check ){
               super(type,number,dimension,quantity,check);
        }
@@ -9,7 +11,7 @@ public class NestedRoom extends Room{
        }
 
        public String toString(){
-              return room_number + " " + "Room_Description = " + describe() + " " + room_quantity;
+              return room_number + "  " + "Room_Type : " + room_type + "  " + "Room_Description : " + describe();
        }
 
        public String getRoom_description(){

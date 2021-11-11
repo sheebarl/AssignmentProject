@@ -1,4 +1,6 @@
-public class LightRoom extends Room{
+import java.io.Serializable;
+
+public class LightRoom extends Room implements Serializable {
 
        public LightRoom(String type,String number, String dimension, int quantity,boolean check ){
               super(type,number,dimension,quantity,check);
@@ -12,7 +14,8 @@ public class LightRoom extends Room{
        }
 
        public String toString(){
-              return room_number + " " + "Room_Description = " + describe() + " " + getRoom_quantity();
+              //return room_number + " " + "Room_Description = " + describe() + " " + getRoom_quantity();
+              return room_number + " " + "Room_Type : " + room_type + " " + "Room_Description : " + describe();
        }
 
        public String getRoom_description(){

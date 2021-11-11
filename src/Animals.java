@@ -1,4 +1,6 @@
-public class Animals {
+import java.io.Serializable;
+
+public class Animals implements Serializable {
     String animal_name;
     int animal_age;
     String animal_size;
@@ -8,11 +10,11 @@ public class Animals {
 
     @Override
     public String toString() {
-        return "Animals { " +
+        return " " +
                 "Animal_name= ' " + animal_name + '\'' +
                 ", Favourite_food = ' " + favourite_food + '\'' +
-                ", Favourite_activity = ' " + favourite_activity + '\'' +
-                '}';
+                ", Favourite_activity = ' " + favourite_activity + '\'' ;
+
     }
 
     public Animals(String name,String food,String activity){

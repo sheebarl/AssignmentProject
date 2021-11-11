@@ -1,4 +1,6 @@
-public class Room {
+import java.io.Serializable;
+
+public class Room implements Serializable {
 
     String room_number;
     String room_dimension;
@@ -11,14 +13,11 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room{" +
+        return "Room{ " +
                 "room_number='" + room_number + '\'' +
-                //", room_dimension='" + room_dimension + '\'' +
                 ", room_quantity=" + room_quantity +
                 ", room_type='" + room_type + '\'' +
                 ", room_description='" + room_description + '\'' +
-                //", RoomChecking=" + RoomChecking +
-                //", Room1 = " + Room1  +
                 ", animals= " + animals +
                 '}';
     }

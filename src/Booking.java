@@ -1,4 +1,6 @@
-public class Booking {
+import java.io.Serializable;
+
+public class Booking  implements Serializable {
 
     Room room;
     Animals animals;
@@ -6,10 +8,10 @@ public class Booking {
 
     @Override
     public String toString() {
-        return "Booking { " +
-                "Room_number = " + room  + " " +
-                ", Animals_details = " + animals +
-                '}';
+        return " Booking  " + "\n" +
+                "Room_details : " + "Room_number : " + room  + " " + "\n" +
+                "Animals_details : " + animals ;
+
     }
 
 

@@ -1,4 +1,6 @@
-public class Eagle extends Animals {
+import java.io.Serializable;
+
+public class Eagle extends Animals implements Serializable {
     String favourite_Food;
     String favourite_Activity;
 
