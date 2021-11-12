@@ -7,16 +7,10 @@ class RoomTest {
 
     @Test
     void getRoom_number() {
-        Assertions.assertEquals("R001","R001");
+        Room roomtest1=new Room("DarkRoom","R002","150x150",2,true);
+             Assertions.assertEquals("R002",roomtest1.getRoom_number());
     }
 
-    @Test
-    void getRoom_quantity() {
-        Assertions.assertEquals(1,1);
-    }
 
-    @Test
-    void getRoomChecking() {
-        Assertions.assertEquals("true","true");
-    }
+
 }
