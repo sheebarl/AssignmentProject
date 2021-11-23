@@ -263,6 +263,9 @@ public class AnimalHotel implements Serializable{
 
     //This method is used to filter the animal name
     public void FilterBookings(){
+        ArrayList<Booking> bookingList = new ArrayList<Booking>();
+        //reading the data from file
+        bookingList =readBooking();
         System.out.print("Enter the name to filter : ");
         String s=getUserString();
         for(int i=0;i<bookingList.size();i++){
@@ -270,6 +273,7 @@ public class AnimalHotel implements Serializable{
             System.out.println("Animal name with " + s + ": " + bookingList.get(i).getAnimals().getAnimal_name());
         }
      }
+        writeBooking(bookingList);
 
    }
 
